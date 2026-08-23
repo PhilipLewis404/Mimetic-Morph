@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mimetic</title>
+
+    <link rel="icon" type="image/png" href="./image/icone.png?v=2">
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #090b10;
+            --panel: #11141b;
+            --panel-2: #171b24;
+            --panel-3: #202632;
+
+            --border: #2a3140;
+
+            --text: #f4f6fb;
+            --muted: #8c96a8;
+
+            --accent: #8d7cff;
+            --accent-soft: rgba(141, 124, 255, 0.15);
+
+            --danger: #ff6174;
+
+            --radius: 18px;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #17152b 0%,
+                    var(--bg) 45%
+                );
+
+            color: var(--text);
+        }
+
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 24px 6vw;
+
+            border-bottom: 1px solid var(--border);
+            background: rgba(9, 11, 16, 0.85);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .logo p {
+            margin: 2px 0 0;
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+            background: #64e59a;
+
+            box-shadow:
+                0 0 10px #64e59a;
+        }
+
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        main {
+            width: min(1200px, 92%);
+            margin: 50px auto;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .intro h2 {
+            margin-bottom: 8px;
+
+            font-size: clamp(
+                28px,
+                5vw,
+                44px
+            );
+        }
+
+        .intro p {
+            color: var(--muted);
+            margin: 0;
+        }
+
+
+        /* =========================
+           CATEGORIAS
+        ========================= */
+
+        .categorias {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+        .categoria {
+            padding: 9px 15px;
+
+            border: 1px solid var(--border);
+            border-radius: 30px;
+
+            background: var(--panel);
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .categoria:hover,
+        .categoria.ativa {
+            color: white;
+
+            border-color: var(--accent);
+
+            background: var(--accent-soft);
+        }
+
+
+        /* =========================
+           TRADUTOR
+        ========================= */
+
+        .tradutor {
+            display: grid;
+
+            grid-template-columns:
+                1fr auto 1fr;
+
+            gap: 14px;
+
+            align-items: stretch;
+        }
+
+        .painel {
+            min-width: 0;
+
+            background:
+                rgba(17, 20, 27, 0.95);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* =========================
+           SELETOR
+        ========================= */
+
+        .painel-topo {
+            padding: 14px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+        select {
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+            outline: none;
+
+            border-radius: 10px;
+
+            background:
+                var(--panel-2);
+
+            color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           CONFIGURAÇÃO ADAPTATIVA
+        ========================= */
+
+        .configuracao {
+            display: none;
+
+            padding:
+                13px 16px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            background:
+                rgba(141, 124, 255, 0.05);
+        }
+
+        .configuracao.ativa {
+            display: block;
+        }
+
+        .configuracao label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+            font-size: 12px;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .configuracao input {
+            width: 100%;
+
+            padding: 10px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                var(--panel-2);
+
+            color: white;
+
+            outline: none;
+        }
+
+
+        /* =========================
+           TEXTO
+        ========================= */
+
+        textarea {
+            display: block;
+
+            width: 100%;
+            height: 300px;
+
+            padding: 22px;
+
+            border: none;
+            outline: none;
+
+            resize: none;
+
+            background: transparent;
+
+            color: white;
+
+            font-family: inherit;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        textarea::placeholder {
+            color: #555e6c;
+        }
+
+
+        /* =========================
+           RODAPÉ DOS PAINÉIS
+        ========================= */
+
+        .painel-rodape {
+            min-height: 58px;
+
+            padding:
+                10px 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-top:
+                1px solid var(--border);
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 7px;
+        }
+
+        button {
+            border: none;
+
+            color: white;
+            background: var(--panel-3);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.15s,
+                background 0.15s;
+        }
+
+        button:hover {
+            background: #30384a;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .botao-icone {
+            width: 36px;
+            height: 36px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           BOTÃO INVERTER
+        ========================= */
+
+        .trocar {
+            align-self: center;
+
+            width: 46px;
+            height: 46px;
+
+            border-radius: 50%;
+
+            font-size: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7664ff,
+                    #a278ff
+                );
+
+            box-shadow:
+                0 0 25px
+                rgba(141, 124, 255, 0.25);
+        }
+
+
+        /* =========================
+           MORSE
+        ========================= */
+
+        .morse-tools {
+            display: none;
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius);
+
+            background:
+                rgba(17, 20, 27, 0.95);
+        }
+
+        .morse-tools.ativa {
+            display: block;
+        }
+
+        .morse-tools h3 {
+            margin-top: 0;
+        }
+
+        .morse-controles {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .morse-btn {
+            min-width: 120px;
+
+            padding: 12px 16px;
+
+            border-radius: 10px;
+        }
+
+        .morse-btn.ativo {
+            background:
+                var(--accent);
+        }
+
+        .sinalizador-area {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            background:
+                var(--panel-2);
+
+            text-align: center;
+        }
+
+        .sinalizador-area.ativa {
+            display: block;
+        }
+
+        #botaoSinal {
+            width: min(400px, 100%);
+            height: 100px;
+
+            border-radius: 16px;
+
+            font-size: 22px;
+            font-weight: bold;
+
+            user-select: none;
+        }
+
+        #botaoSinal.pressionado {
+            background:
+                var(--accent);
+
+            box-shadow:
+                0 0 35px
+                rgba(141, 124, 255, 0.5);
+        }
+
+        .timer {
+            margin: 15px 0;
+
+            font-size: 26px;
+            font-variant-numeric:
+                tabular-nums;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            header {
+                padding:
+                    18px 5vw;
+            }
+
+            .status {
+                display: none;
+            }
+
+            main {
+                margin-top: 30px;
+            }
+
+            .tradutor {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .trocar {
+                justify-self: center;
+
+                transform:
+                    rotate(90deg);
+            }
+
+            .trocar:active {
+                transform:
+                    rotate(90deg)
+                    scale(0.95);
+            }
+
+            textarea {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+
+<div class="logo-icon">
+    <img src="./image/icone1.png" alt="Mimetic">
+</div>
+
+        <div>
+
+            <h1>
+                Mimetic
+            </h1>
+
+            <p>
+                Adaptive Conversion System
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="status">
+
+        <span class="status-dot"></span>
+
+        Conversão em tempo real
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+    <section class="intro">
+
+        <h2>
+            Uma ferramenta.
+            Todos os sistemas.
+        </h2>
+
+        <p>
+            Converta, traduza e transforme sem procurar outro site.
+        </p>
+
+    </section>
+
+
+
+    <nav class="categorias">
+
+        <button class="categoria ativa">
+            Todos
+        </button>
+
+        <button class="categoria">
+            Idiomas
+        </button>
+
+        <button class="categoria">
+            Tria Sidera
+        </button>
+
+        <button class="categoria">
+            Cifras
+        </button>
+
+        <button class="categoria">
+            Numéricos
+        </button>
+
+        <button class="categoria">
+            Especiais
+        </button>
+
+    </nav>
+
+
+
+    <section class="tradutor">
+
+
+        <!-- =====================
+             ORIGEM
+        ====================== -->
+
+        <div class="painel">
+
+            <div class="painel-topo">
+
+                <select id="origem">
+
+                    <option value="portugues">
+                        Português
+                    </option>
+
+                    <optgroup label="Universo Auryth">
+
+                        <option value="auryth">
+                            Auryth
+                        </option>
+
+                        <option value="sshoryath">
+                            Sshoryath
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Tria Sidera">
+
+                        <option value="bhriskavoy">
+                            Bhriskavoy
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Cifras">
+
+                        <option value="cesar">
+                            Cifra de César
+                        </option>
+
+                        <option value="morse">
+                            Código Morse
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Numéricos">
+
+                        <option value="binario">
+                            Binário UTF-8
+                        </option>
+
+                        <option value="hex">
+                            Hexadecimal
+                        </option>
+
+                    </optgroup>
+
+                </select>
+
+            </div>
+
+
+
+            <div
+                class="configuracao"
+                id="configOrigemCesar"
+            >
+
+                <label>
+                    Deslocamento César
+                </label>
+
+                <input
+                    type="number"
+                    id="origemCesar"
+                    value="3"
+                    min="0"
+                    max="25"
+                >
+
+            </div>
+
+
+
+            <textarea
+                id="entrada"
+                placeholder="Digite ou cole alguma coisa..."
+            ></textarea>
+
+
+
+            <div class="painel-rodape">
+
+                <span id="contadorEntrada">
+                    0 caracteres
+                </span>
+
+                <div class="acoes">
+
+                    <button
+                        class="botao-icone"
+                        id="limpar"
+                        title="Limpar"
+                    >
+                        ✕
+                    </button>
+
+                    <button
+                        class="botao-icone"
+                        id="copiarEntrada"
+                        title="Copiar"
+                    >
+                        ⧉
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================
+             TROCAR
+        ====================== -->
+
+        <button
+            class="trocar"
+            id="trocar"
+            title="Inverter"
+        >
+            ⇄
+        </button>
+
+
+
+        <!-- =====================
+             DESTINO
+        ====================== -->
+
+        <div class="painel">
+
+            <div class="painel-topo">
+
+                <select id="destino">
+
+                    <option value="auryth">
+                        Auryth
+                    </option>
+
+                    <option value="portugues">
+                        Português
+                    </option>
+
+
+                    <optgroup label="Universo Auryth">
+
+                        <option value="sshoryath">
+                            Sshoryath
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Tria Sidera">
+
+                        <option value="bhriskavoy">
+                            Bhriskavoy
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Cifras">
+
+                        <option value="cesar">
+                            Cifra de César
+                        </option>
+
+                        <option value="erased">
+                            Erased
+                        </option>
+
+                        <option value="morse">
+                            Código Morse
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Numéricos">
+
+                        <option value="binario">
+                            Binário UTF-8
+                        </option>
+
+                        <option value="hex">
+                            Hexadecimal
+                        </option>
+
+                    </optgroup>
+
+                </select>
+
+            </div>
+
+
+
+            <div
+                class="configuracao"
+                id="configDestinoCesar"
+            >
+
+                <label>
+                    Deslocamento César
+                </label>
+
+                <input
+                    type="number"
+                    id="destinoCesar"
+                    value="3"
+                    min="0"
+                    max="25"
+                >
+
+            </div>
+
+
+
+            <div
+                class="configuracao"
+                id="configErased"
+            >
+
+                <label>
+                    Caracteres apagados
+                </label>
+
+                <input
+                    type="text"
+                    id="letrasErased"
+                    placeholder="Ex: AEIOU"
+                >
+
+            </div>
+
+
+
+            <textarea
+                id="saida"
+                readonly
+                placeholder="O resultado aparecerá aqui..."
+            ></textarea>
+
+
+
+            <div class="painel-rodape">
+
+                <span id="contadorSaida">
+                    0 caracteres
+                </span>
+
+                <div class="acoes">
+
+                    <button
+                        class="botao-icone"
+                        id="copiarSaida"
+                        title="Copiar"
+                    >
+                        ⧉
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         FERRAMENTAS MORSE
+    ========================== -->
+
+    <section
+        class="morse-tools"
+        id="morseTools"
+    >
+
+        <h3>
+            Ferramentas Morse
+        </h3>
+
+
+        <div class="morse-controles">
+
+            <button
+                class="morse-btn"
+                id="muteMorse"
+            >
+                🔊 Som
+            </button>
+
+
+            <button
+                class="morse-btn"
+                id="manualMorse"
+            >
+                ◉ Sinalização Manual
+            </button>
+
+
+            <button
+                class="morse-btn"
+                id="timerMorse"
+            >
+                ⏱ Temporizador
+            </button>
+
+
+            <button
+                class="morse-btn"
+                id="playMorse"
+            >
+                ▶ Reproduzir
+            </button>
+
+
+            <button
+                class="morse-btn"
+                id="espacoMorse"
+            >
+                ↵ Espaço
+            </button>
+
+        </div>
+
+
+
+        <div
+            class="sinalizador-area"
+            id="sinalizadorArea"
+        >
+
+            <p>
+                Segure o botão ou a barra de espaço
+            </p>
+
+
+            <div
+                class="timer"
+                id="timerDisplay"
+            >
+                0.000 s
+            </div>
+
+
+            <button id="botaoSinal">
+                SEGURE PARA SINALIZAR
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+/* =====================================================
+   MAPAS
+===================================================== */
+
+
+const sistemas = {
+
+
+    auryth: {
+
+        tipo: "mapa",
+
+        Mapa: {
+
+            'A': "Bri", 'a': "bri",
+            'Ã': "Bru", 'ã': "bru",
+            'Á': "Bre", 'á': "bre",
+            'À': "Bra", 'à': "bra",
+            'Â': "Bro", 'â': "bro",
+
+            'B': "Fr", 'b': "fr",
+
+            'C': "Sta", 'c': "sta",
+            'Ç': "Stra", 'ç': "stra",
+
+            'D': "Ve", 'd': "ve",
+
+            'E': "Na", 'e': "na",
+            'É': "Nre", 'é': "nre",
+            'È': "Nra", 'è': "nra",
+            'Ê': "Nro", 'ê': "nro",
+
+            'F': "Ko", 'f': "ko",
+            'G': "Xi", 'g': "xi",
+            'H': "Já", 'h': "já",
+
+            'I': "Ki", 'i': "ki",
+            'Í': "Kre", 'í': "kre",
+            'Ì': "Kra", 'ì': "kra",
+            'Î': "Kro", 'î': "kro",
+
+            'J': "Ga", 'j': "ga",
+            'K': "Ru", 'k': "ru",
+            'L': "Vr", 'l': "vr",
+            'M': "Ny", 'm': "ny",
+            'N': "Mu", 'n': "mu",
+
+            'O': "Yo", 'o': "yo",
+            'Ó': "Yre", 'ó': "yre",
+            'Ò': "Yra", 'ò': "yra",
+            'Ô': "Yro", 'ô': "yro",
+            'Õ': "Yru", 'õ': "yru",
+
+            'P': "Ro", 'p': "ro",
+            'Q': "Za", 'q': "za",
+            'R': "As", 'r': "as",
+            'S': "Du", 's': "du",
+            'T': "Ne", 't': "ne",
+
+            'U': "Io", 'u': "io",
+            'Ú': "Ire", 'ú': "ire",
+            'Ù': "Ira", 'ù': "ira",
+            'Û': "Iro", 'û': "iro",
+
+            'V': "Tre", 'v': "tre",
+            'W': "Go", 'w': "go",
+            'X': "Ni", 'x': "ni",
+            'Y': "De", 'y': "de",
+            'Z': "Tru", 'z': "tru"
+        }
+    },
+
+
+    sshoryath: {
+
+        tipo: "mapa",
+
+        Mapa: {
+
+            'A': "Kra'", 'a': "kra'",
+            'B': "Zul'", 'b': "zul'",
+            'C': "Nek'", 'c': "nek'",
+            'Ç': "Sha'", 'ç': "sha'",
+            'D': "Grol'", 'd': "grol'",
+            'E': "Tha'", 'e': "tha'",
+            'F': "Vur'", 'f': "vur'",
+            'G': "Rax'", 'g': "rax'",
+            'H': "Ssh'", 'h': "ssh'",
+            'I': "Yir'", 'i': "yir'",
+            'J': "Qel'", 'j': "qel'",
+            'K': "Drak'", 'k': "drak'",
+            'L': "Vash'", 'l': "vash'",
+            'M': "Thra'", 'm': "thra'",
+            'N': "Urg'", 'n': "urg'",
+            'O': "Mok'", 'o': "mok'",
+            'P': "Kren'", 'p': "kren'",
+            'Q': "Xyr'", 'q': "xyr'",
+            'R': "Lor'", 'r': "lor'",
+            'S': "Tesh'", 's': "tesh'",
+            'T': "Val'", 't': "val'",
+            'U': "Yul'", 'u': "yul'",
+            'V': "Zarn'", 'v': "zarn'",
+            'W': "Ghur'", 'w': "ghur'",
+            'X': "Klyr'", 'x': "klyr'",
+            'Y': "Zhul'", 'y': "zhul'",
+            'Z': "Brel'", 'z': "brel'"
+        }
+    },
+
+
+    bhriskavoy: {
+
+        tipo: "mapa",
+
+        Mapa: {
+
+            'A': "Gha", 'a': "gha",
+            'Á': "Ghra", 'á': "ghra",
+            'Â': "Gro", 'â': "gro",
+            'Ã': "Ghu", 'ã': "ghu",
+
+            'B': "Zhr", 'b': "zhr",
+
+            'C': "Tka", 'c': "tka",
+            'Ç': "Tkra", 'ç': "tkra",
+
+            'D': "Vek", 'd': "vek",
+
+            'E': "Sha", 'e': "sha",
+            'É': "Shre", 'é': "shre",
+            'È': "Shra", 'è': "shra",
+            'Ê': "Shro", 'ê': "shro",
+
+            'F': "Xol", 'f': "xol",
+            'G': "Rag", 'g': "rag",
+            'H': "Hu", 'h': "hu",
+
+            'I': "Kii", 'i': "kii",
+            'Í': "Kra", 'í': "kra",
+            'Ì': "Kru", 'ì': "kru",
+            'Î': "Kro", 'î': "kro",
+
+            'J': "Zai", 'j': "zai",
+            'K': "Krul", 'k': "krul",
+            'L': "Vel", 'l': "vel",
+            'M': "Nom", 'm': "nom",
+            'N': "Nar", 'n': "nar",
+
+            'O': "Vor", 'o': "vor",
+            'Ó': "Vra", 'ó': "vra",
+            'Ò': "Vru", 'ò': "vru",
+            'Ô': "Vro", 'ô': "vro",
+            'Õ': "Vrau", 'õ': "vrau",
+
+            'P': "Prah", 'p': "prah",
+            'Q': "Qru", 'q': "qru",
+            'R': "Ras", 'r': "ras",
+            'S': "Ssu", 's': "ssu",
+            'T': "Taa", 't': "taa",
+
+            'U': "Thu", 'u': "thu",
+            'Ú': "Thra", 'ú': "thra",
+            'Ù': "Thru", 'ù': "thru",
+            'Û': "Thro", 'û': "thro",
+
+            'V': "Vru", 'v': "vru",
+            'W': "Wra", 'w': "wra",
+            'X': "Xii", 'x': "xii",
+            'Y': "Yul", 'y': "yul",
+            'Z': "Zor", 'z': "zor"
+        }
+    }
+};
+
+
+
+/* =====================================================
+   MAPA
+===================================================== */
+
+
+function converterMapa(texto, mapa) {
+
+    return texto
+        .split('')
+        .map(c => mapa[c] || c)
+        .join('');
+}
+
+
+
+/* =====================================================
+   MAPA REVERSO
+===================================================== */
+
+
+function decodificarMapa(texto, mapa) {
+
+    const pares =
+        Object.entries(mapa)
+            .sort(
+                (a, b) =>
+                    b[1].length - a[1].length
+            );
+
+
+    let resultado = "";
+    let posicao = 0;
+
+
+    while (posicao < texto.length) {
+
+        let encontrou = false;
+
+
+        for (
+            const [letra, codigo]
+            of pares
+        ) {
+
+            if (
+                texto.startsWith(
+                    codigo,
+                    posicao
+                )
+            ) {
+
+                resultado += letra;
+
+                posicao +=
+                    codigo.length;
+
+                encontrou = true;
+
+                break;
+            }
+        }
+
+
+        if (!encontrou) {
+
+            resultado +=
+                texto[posicao];
+
+            posicao++;
+        }
+    }
+
+
+    return resultado;
+}
+
+
+
+/* =====================================================
+   CÉSAR
+===================================================== */
+
+
+function cesar(
+    texto,
+    deslocamento
+) {
+
+    return texto
+        .split('')
+        .map(letra => {
+
+            const codigo =
+                letra.charCodeAt(0);
+
+
+            if (
+                codigo >= 65 &&
+                codigo <= 90
+            ) {
+
+                return String.fromCharCode(
+
+                    (
+                        codigo -
+                        65 +
+                        deslocamento +
+                        26
+                    )
+                    % 26
+
+                    + 65
+                );
+            }
+
+
+            if (
+                codigo >= 97 &&
+                codigo <= 122
+            ) {
+
+                return String.fromCharCode(
+
+                    (
+                        codigo -
+                        97 +
+                        deslocamento +
+                        26
+                    )
+                    % 26
+
+                    + 97
+                );
+            }
+
+
+            return letra;
+        })
+        .join('');
+}
+
+
+
+/* =====================================================
+   ERASED
+===================================================== */
+
+
+function erased(
+    texto,
+    letras
+) {
+
+    const remover =
+        letras.toLowerCase();
+
+
+    return texto
+        .split('')
+        .filter(
+            letra =>
+                !remover.includes(
+                    letra.toLowerCase()
+                )
+        )
+        .join('');
+}
+
+
+
+/* =====================================================
+   UTF-8 / BINÁRIO / HEX
+===================================================== */
+
+
+function textoParaBytes(texto) {
+
+    return new TextEncoder()
+        .encode(texto);
+}
+
+
+function bytesParaTexto(bytes) {
+
+    return new TextDecoder()
+        .decode(
+            new Uint8Array(bytes)
+        );
+}
+
+
+function paraBinario(texto) {
+
+    return [...textoParaBytes(texto)]
+
+        .map(
+            byte =>
+                byte
+                    .toString(2)
+                    .padStart(8, "0")
+        )
+
+        .join(" ");
+}
+
+
+function deBinario(texto) {
+
+    const bytes =
+        texto
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean)
+            .map(
+                valor =>
+                    parseInt(
+                        valor,
+                        2
+                    )
+            );
+
+
+    return bytesParaTexto(bytes);
+}
+
+
+function paraHex(texto) {
+
+    return [...textoParaBytes(texto)]
+
+        .map(
+            byte =>
+                byte
+                    .toString(16)
+                    .padStart(2, "0")
+                    .toUpperCase()
+        )
+
+        .join(" ");
+}
+
+
+function deHex(texto) {
+
+    const bytes =
+        texto
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean)
+            .map(
+                valor =>
+                    parseInt(
+                        valor,
+                        16
+                    )
+            );
+
+
+    return bytesParaTexto(bytes);
+}
+
+
+
+/* =====================================================
+   MORSE
+===================================================== */
+
+
+const morse = {
+
+    A: ".-",
+    B: "-...",
+    C: "-.-.",
+    D: "-..",
+    E: ".",
+    F: "..-.",
+    G: "--.",
+    H: "....",
+    I: "..",
+    J: ".---",
+    K: "-.-",
+    L: ".-..",
+    M: "--",
+    N: "-.",
+    O: "---",
+    P: ".--.",
+    Q: "--.-",
+    R: ".-.",
+    S: "...",
+    T: "-",
+    U: "..-",
+    V: "...-",
+    W: ".--",
+    X: "-..-",
+    Y: "-.--",
+    Z: "--..",
+
+    0: "-----",
+    1: ".----",
+    2: "..---",
+    3: "...--",
+    4: "....-",
+    5: ".....",
+    6: "-....",
+    7: "--...",
+    8: "---..",
+    9: "----."
+};
+
+
+function paraMorse(texto) {
+
+    return texto
+        .toUpperCase()
+        .split("")
+        .map(
+            c =>
+                c === " "
+                    ? "/"
+                    : morse[c] || c
+        )
+        .join(" ");
+}
+
+
+function deMorse(texto) {
+
+    const reverso =
+        Object.fromEntries(
+            Object.entries(morse)
+                .map(
+                    ([letra, codigo]) =>
+                        [codigo, letra]
+                )
+        );
+
+
+    return texto
+        .trim()
+        .split(/\s+/)
+        .map(
+            codigo =>
+                codigo === "/"
+                    ? " "
+                    : reverso[codigo] || "?"
+        )
+        .join("");
+}
+
+
+
+/* =====================================================
+   ELEMENTOS
+===================================================== */
+
+
+const entrada =
+    document.getElementById(
+        "entrada"
+    );
+
+const saida =
+    document.getElementById(
+        "saida"
+    );
+
+const origem =
+    document.getElementById(
+        "origem"
+    );
+
+const destino =
+    document.getElementById(
+        "destino"
+    );
+
+
+
+/* =====================================================
+   TRANSFORMAR PARA PORTUGUÊS
+===================================================== */
+
+
+function decodificarOrigem(
+    texto,
+    sistema
+) {
+
+    if (
+        sistema ===
+        "portugues"
+    ) {
+
+        return texto;
+    }
+
+
+    if (
+        sistemas[sistema]
+    ) {
+
+        return decodificarMapa(
+            texto,
+            sistemas[sistema].Mapa
+        );
+    }
+
+
+    if (
+        sistema ===
+        "cesar"
+    ) {
+
+        const valor =
+            Number(
+                document
+                    .getElementById(
+                        "origemCesar"
+                    )
+                    .value
+            );
+
+        return cesar(
+            texto,
+            -valor
+        );
+    }
+
+
+    if (
+        sistema ===
+        "binario"
+    ) {
+
+        try {
+
+            return deBinario(
+                texto
+            );
+
+        } catch {
+
+            return "";
+        }
+    }
+
+
+    if (
+        sistema ===
+        "hex"
+    ) {
+
+        try {
+
+            return deHex(
+                texto
+            );
+
+        } catch {
+
+            return "";
+        }
+    }
+
+
+    if (
+        sistema ===
+        "morse"
+    ) {
+
+        return deMorse(
+            texto
+        );
+    }
+
+
+    return texto;
+}
+
+
+
+/* =====================================================
+   TRANSFORMAR DO PORTUGUÊS PARA DESTINO
+===================================================== */
+
+
+function codificarDestino(
+    texto,
+    sistema
+) {
+
+    if (
+        sistema ===
+        "portugues"
+    ) {
+
+        return texto;
+    }
+
+
+    if (
+        sistemas[sistema]
+    ) {
+
+        return converterMapa(
+            texto,
+            sistemas[sistema].Mapa
+        );
+    }
+
+
+    if (
+        sistema ===
+        "cesar"
+    ) {
+
+        const valor =
+            Number(
+                document
+                    .getElementById(
+                        "destinoCesar"
+                    )
+                    .value
+            );
+
+        return cesar(
+            texto,
+            valor
+        );
+    }
+
+
+    if (
+        sistema ===
+        "erased"
+    ) {
+
+        return erased(
+
+            texto,
+
+            document
+                .getElementById(
+                    "letrasErased"
+                )
+                .value
+        );
+    }
+
+
+    if (
+        sistema ===
+        "binario"
+    ) {
+
+        return paraBinario(
+            texto
+        );
+    }
+
+
+    if (
+        sistema ===
+        "hex"
+    ) {
+
+        return paraHex(
+            texto
+        );
+    }
+
+
+    if (
+        sistema ===
+        "morse"
+    ) {
+
+        return paraMorse(
+            texto
+        );
+    }
+
+
+    return texto;
+}
+
+
+
+/* =====================================================
+   CONVERSÃO CENTRAL
+===================================================== */
+
+
+function atualizar() {
+
+    const intermediario =
+        decodificarOrigem(
+            entrada.value,
+            origem.value
+        );
+
+
+    saida.value =
+        codificarDestino(
+            intermediario,
+            destino.value
+        );
+
+
+    document
+        .getElementById(
+            "contadorEntrada"
+        )
+        .textContent =
+            entrada.value.length +
+            " caracteres";
+
+
+    document
+        .getElementById(
+            "contadorSaida"
+        )
+        .textContent =
+            saida.value.length +
+            " caracteres";
+}
+
+
+
+/* =====================================================
+   INTERFACE ADAPTATIVA
+===================================================== */
+
+
+function atualizarInterface() {
+
+    const origemCesar =
+        document.getElementById(
+            "configOrigemCesar"
+        );
+
+    const destinoCesar =
+        document.getElementById(
+            "configDestinoCesar"
+        );
+
+    const configErased =
+        document.getElementById(
+            "configErased"
+        );
+
+
+    origemCesar.classList
+        .toggle(
+            "ativa",
+            origem.value === "cesar"
+        );
+
+
+    destinoCesar.classList
+        .toggle(
+            "ativa",
+            destino.value === "cesar"
+        );
+
+
+    configErased.classList
+        .toggle(
+            "ativa",
+            destino.value === "erased"
+        );
+
+
+    const temMorse =
+
+        origem.value === "morse"
+
+        ||
+
+        destino.value === "morse";
+
+
+    document
+        .getElementById(
+            "morseTools"
+        )
+        .classList
+        .toggle(
+            "ativa",
+            temMorse
+        );
+}
+
+
+
+/* =====================================================
+   EVENTOS PRINCIPAIS
+===================================================== */
+
+
+entrada.addEventListener(
+    "input",
+    atualizar
+);
+
+
+origem.addEventListener(
+    "change",
+    () => {
+
+        atualizarInterface();
+        atualizar();
+    }
+);
+
+
+destino.addEventListener(
+    "change",
+    () => {
+
+        atualizarInterface();
+        atualizar();
+    }
+);
+
+
+document
+    .querySelectorAll(
+        ".configuracao input"
+    )
+    .forEach(
+
+        input =>
+
+            input.addEventListener(
+                "input",
+                atualizar
+            )
+    );
+
+
+
+/* =====================================================
+   TROCAR
+===================================================== */
+
+
+document
+    .getElementById(
+        "trocar"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (
+                destino.value ===
+                "erased"
+            ) {
+
+                return;
+            }
+
+
+            const sistemaAnterior =
+                origem.value;
+
+
+            origem.value =
+                destino.value;
+
+
+            destino.value =
+                sistemaAnterior;
+
+
+            entrada.value =
+                saida.value;
+
+
+            atualizarInterface();
+            atualizar();
+        }
+    );
+
+
+
+/* =====================================================
+   COPIAR E LIMPAR
+===================================================== */
+
+
+document
+    .getElementById(
+        "copiarEntrada"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            navigator
+                .clipboard
+                .writeText(
+                    entrada.value
+                );
+        }
+    );
+
+
+document
+    .getElementById(
+        "copiarSaida"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            navigator
+                .clipboard
+                .writeText(
+                    saida.value
+                );
+        }
+    );
+
+
+document
+    .getElementById(
+        "limpar"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            entrada.value = "";
+            atualizar();
+        }
+    );
+
+
+
+/* =====================================================
+   MORSE VISUAL
+===================================================== */
+
+
+let manualAtivo = false;
+let timerVisivel = true;
+let mutado = false;
+
+let inicioSinal = null;
+let timerInterval = null;
+
+
+const manualMorse =
+    document.getElementById(
+        "manualMorse"
+    );
+
+const sinalizadorArea =
+    document.getElementById(
+        "sinalizadorArea"
+    );
+
+const botaoSinal =
+    document.getElementById(
+        "botaoSinal"
+    );
+
+const timerDisplay =
+    document.getElementById(
+        "timerDisplay"
+    );
+
+
+
+manualMorse.addEventListener(
+    "click",
+    () => {
+
+        manualAtivo =
+            !manualAtivo;
+
+
+        manualMorse
+            .classList
+            .toggle(
+                "ativo",
+                manualAtivo
+            );
+
+
+        sinalizadorArea
+            .classList
+            .toggle(
+                "ativa",
+                manualAtivo
+            );
+    }
+);
+
+
+
+document
+    .getElementById(
+        "timerMorse"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+            timerVisivel =
+                !timerVisivel;
+
+
+            timerDisplay.style.display =
+                timerVisivel
+                    ? "block"
+                    : "none";
+
+
+            this.classList
+                .toggle(
+                    "ativo",
+                    timerVisivel
+                );
+        }
+    );
+
+
+
+document
+    .getElementById(
+        "muteMorse"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+            mutado =
+                !mutado;
+
+
+            this.textContent =
+                mutado
+                    ? "🔇 Mudo"
+                    : "🔊 Som";
+
+
+            this.classList
+                .toggle(
+                    "ativo",
+                    mutado
+                );
+        }
+    );
+
+
+
+function iniciarSinal() {
+
+    if (!manualAtivo) {
+        return;
+    }
+
+
+    if (inicioSinal !== null) {
+        return;
+    }
+
+
+    inicioSinal =
+        performance.now();
+
+
+    botaoSinal
+        .classList
+        .add(
+            "pressionado"
+        );
+
+
+    timerInterval =
+        setInterval(
+            () => {
+
+                const duracao =
+                    (
+                        performance.now()
+                        -
+                        inicioSinal
+                    )
+                    / 1000;
+
+
+                timerDisplay
+                    .textContent =
+                        duracao
+                            .toFixed(3)
+                        +
+                        " s";
+            },
+            20
+        );
+}
+
+
+
+function finalizarSinal() {
+
+    if (
+        inicioSinal === null
+    ) {
+
+        return;
+    }
+
+
+    const duracao =
+        performance.now()
+        -
+        inicioSinal;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    botaoSinal
+        .classList
+        .remove(
+            "pressionado"
+        );
+
+
+    const sinal =
+        duracao < 300
+            ? "."
+            : "-";
+
+
+    entrada.value += sinal;
+
+
+    inicioSinal = null;
+
+
+    timerDisplay
+        .textContent =
+            "0.000 s";
+
+
+    atualizar();
+}
+
+
+
+botaoSinal.addEventListener(
+    "mousedown",
+    iniciarSinal
+);
+
+
+botaoSinal.addEventListener(
+    "mouseup",
+    finalizarSinal
+);
+
+
+botaoSinal.addEventListener(
+    "mouseleave",
+    finalizarSinal
+);
+
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            manualAtivo
+            &&
+            event.code === "Space"
+            &&
+            !event.repeat
+        ) {
+
+            event.preventDefault();
+
+            iniciarSinal();
+        }
+
+
+        if (
+            manualAtivo
+            &&
+            event.code === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            entrada.value += " ";
+
+            atualizar();
+        }
+    }
+);
+
+
+
+document.addEventListener(
+    "keyup",
+    event => {
+
+        if (
+            manualAtivo
+            &&
+            event.code === "Space"
+        ) {
+
+            event.preventDefault();
+
+            finalizarSinal();
+        }
+    }
+);
+
+
+
+document
+    .getElementById(
+        "espacoMorse"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            entrada.value += " ";
+
+            atualizar();
+        }
+    );
+
+
+
+/* =====================================================
+   CATEGORIAS - MOCKUP VISUAL
+===================================================== */
+
+
+document
+    .querySelectorAll(
+        ".categoria"
+    )
+    .forEach(
+
+        botao => {
+
+            botao.addEventListener(
+                "click",
+                () => {
+
+                    document
+                        .querySelectorAll(
+                            ".categoria"
+                        )
+                        .forEach(
+                            b =>
+                                b.classList
+                                    .remove(
+                                        "ativa"
+                                    )
+                        );
+
+
+                    botao
+                        .classList
+                        .add(
+                            "ativa"
+                        );
+                }
+            );
+        }
+    );
+
+
+
+/* =====================================================
+   INICIALIZAÇÃO
+===================================================== */
+
+
+atualizarInterface();
+atualizar();
+
+
+</script>
+
+
+</body>
+
+</html>
