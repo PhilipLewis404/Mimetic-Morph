@@ -1,0 +1,447 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #090b10;
+    --panel: #11141b;
+    --panel-2: #171b24;
+    --panel-3: #202632;
+    --border: #2a3140;
+    --text: #f4f6fb;
+    --muted: #8c96a8;
+    --soft: #555e6c;
+    --accent: #8d7cff;
+    --accent-strong: #8711b6;
+    --accent-soft: rgba(141, 124, 255, 0.15);
+    --danger: #ff6174;
+    --radius: 18px;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background:
+        radial-gradient(circle at top, #17152b 0%, var(--bg) 42%),
+        var(--bg);
+    color: var(--text);
+    cursor: default;
+    font-family: Inter, Arial, sans-serif;
+}
+
+.site-main {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 400ms ease;
+}
+
+body.site-ativo .site-main,
+body.sem-intro .site-main {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+body.sem-intro .mimetic {
+    display: none;
+}
+
+.site-main {
+    width: min(1240px, 92%);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 28px 0 48px;
+}
+
+.site-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    min-height: 110px;
+    border-bottom: 1px solid var(--border);
+}
+
+.marca {
+    grid-column: 2;
+    min-width: 0;
+    text-align: center;
+}
+
+.marca-logo {
+    display: block;
+    width: min(460px, 54vw);
+    height: auto;
+    margin: 0 auto;
+}
+
+.marca-descricao {
+    margin: -12px 0 0;
+    color: var(--muted);
+    font-size: 1rem;
+}
+
+.status {
+    grid-column: 3;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.wave-text span {
+    display: inline-block;
+    animation: wave-animation 1.2s ease-in-out infinite;
+    animation-delay: calc(0.05s * var(--i));
+}
+
+@keyframes wave-animation {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-9px);
+    }
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #64e59a;
+    box-shadow: 0 0 14px #64e59a;
+}
+
+.workspace {
+    padding-top: 34px;
+}
+
+.categorias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.categoria {
+    min-height: 38px;
+    padding: 0 15px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--muted);
+    cursor: pointer;
+    font: inherit;
+    transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.categoria:hover,
+.categoria.ativa {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: white;
+}
+
+.tradutor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: stretch;
+    gap: 14px;
+}
+
+.painel {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(17, 20, 27, 0.95);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+.painel-topo {
+    display: grid;
+    gap: 9px;
+    padding: 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.painel-topo label,
+.configuracao label {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+select,
+input {
+    width: 100%;
+    min-height: 43px;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    outline: none;
+    background: var(--panel-2);
+    color: white;
+    font: inherit;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(141, 124, 255, 0.16);
+}
+
+.configuracao {
+    display: none;
+    gap: 14px;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(141, 124, 255, 0.06);
+}
+
+.configuracao.ativa {
+    display: grid;
+}
+
+.parametros {
+    display: grid;
+    gap: 12px;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    height: 320px;
+    padding: 22px;
+    border: 1px solid transparent;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: white;
+    font: inherit;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+textarea::placeholder {
+    color: var(--soft);
+}
+
+.painel-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 58px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.acoes {
+    display: flex;
+    gap: 7px;
+}
+
+button {
+    border: none;
+    color: white;
+    background: var(--panel-3);
+    cursor: pointer;
+    transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+button:hover {
+    background: #30384a;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.botao-icone {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    font-size: 1rem;
+}
+
+.trocar {
+    align-self: center;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7664ff, #a278ff);
+    box-shadow: 0 0 25px rgba(141, 124, 255, 0.25);
+    font-size: 1.25rem;
+}
+
+.morse-tools {
+    display: none;
+    margin-top: 24px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(17, 20, 27, 0.95);
+}
+
+.morse-tools.ativa {
+    display: block;
+}
+
+.morse-controles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.morse-btn {
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font: inherit;
+}
+
+.morse-btn.ativo {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.sinalizador-area {
+    display: none;
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 14px;
+    background: var(--panel-2);
+    text-align: center;
+}
+
+.sinalizador-area.ativa {
+    display: block;
+}
+
+#botaoSinal {
+    width: min(420px, 100%);
+    height: 100px;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    user-select: none;
+}
+
+#botaoSinal.pressionado {
+    background: var(--accent);
+    box-shadow: 0 0 35px rgba(141, 124, 255, 0.5);
+}
+
+.timer {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 1.45rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.mensagem-sistema {
+    min-height: 22px;
+    margin: 18px 0 0;
+    color: var(--muted);
+    text-align: center;
+}
+
+.mensagem-sistema.erro {
+    color: var(--danger);
+}
+
+.operacao-conversor {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+    color: var(--muted);
+}
+
+.operacao-conversor select {
+    width: 200px;
+    max-width: 100%;
+    min-height: 42px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel-2);
+    color: inherit;
+    font: inherit;
+}
+
+@media (max-width: 840px) {
+    .site-main {
+        width: min(620px, 92%);
+        padding-top: 18px;
+    }
+
+    .site-header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        min-height: auto;
+    }
+
+    .marca-logo {
+        width: min(380px, 78vw);
+    }
+
+    .status {
+        grid-column: 1;
+        justify-self: center;
+        display: flex;
+        font-size: 0.82rem;
+    }
+
+    .tradutor {
+        grid-template-columns: 1fr;
+    }
+
+    .trocar {
+        justify-self: center;
+        transform: rotate(90deg);
+    }
+
+    .trocar:active {
+        transform: rotate(90deg) scale(0.95);
+    }
+
+    textarea {
+        height: 230px;
+        font-size: 1rem;
+    }
+
+}

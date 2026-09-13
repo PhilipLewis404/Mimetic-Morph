@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <meta
+        name="description"
+        content="Mimetic — sistema adaptativo de conversão, tradução e transformação."
+    >
+
+    <title>Mimetic</title>
+    <link rel="icon" type="image/png" href="img/Mimetic Ico.png">
+    <link rel="stylesheet" href="css/mimetic.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div
+        class="mimetic"
+        aria-hidden="true"
+    >
+        <img
+            class="parte superior"
+            src="img/mimetic-superior.png"
+            alt=""
+        >
+
+        <img
+            class="logo-mimetic"
+            src="img/logo-mimetic.png"
+            alt=""
+        >
+
+        <img
+            class="parte inferior"
+            src="img/mimetic-inferior.png"
+            alt=""
+        >
+    </div>
+
+    <main class="site-main">
+        <header class="site-header">
+            <div class="marca">
+                <img
+                    class="marca-logo"
+                    src="img/letreiro-mimetic.png"
+                    alt="Mimetic"
+                >
+
+                <p class="marca-descricao">
+                    Adaptive Conversion System
+                </p>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                <span
+                    class="wave-text"
+                    aria-label="Conversão em tempo real"
+                >
+                    <span style="--i: 1;">C</span><span style="--i: 2;">o</span><span style="--i: 3;">n</span><span style="--i: 4;">v</span><span style="--i: 5;">e</span><span style="--i: 6;">r</span><span style="--i: 7;">s</span><span style="--i: 8;">ã</span><span style="--i: 9;">o</span>
+                    <span class="espaco">&nbsp;</span>
+                    <span style="--i: 11;">e</span><span style="--i: 12;">m</span>
+                    <span class="espaco">&nbsp;</span>
+                    <span style="--i: 14;">t</span><span style="--i: 15;">e</span><span style="--i: 16;">m</span><span style="--i: 17;">p</span><span style="--i: 18;">o</span>
+                    <span class="espaco">&nbsp;</span>
+                    <span style="--i: 20;">r</span><span style="--i: 21;">e</span><span style="--i: 22;">a</span><span style="--i: 23;">l</span>
+                </span>
+            </div>
+        </header>
+
+        <section class="workspace" aria-label="Conversor Mimetic">
+            <nav
+                class="categorias"
+                id="categorias"
+                aria-label="Categorias"
+            ></nav>
+
+            <div class="operacao-conversor">
+                <label for="operacao">Operação</label>
+                <select id="operacao">
+                    <option value="encode">Criptografar</option>
+                    <option value="decode">Descriptografar</option>
+                </select>
+            </div>
+
+            <section class="tradutor">
+                <article class="painel">
+                    <header class="painel-topo">
+                        <label for="origem">Origem</label>
+                        <select id="origem"></select>
+                    </header>
+
+                    <div
+                        class="configuracao"
+                        id="configOrigem"
+                    ></div>
+
+                    <textarea
+                        id="entrada"
+                        placeholder="Digite ou cole alguma coisa..."
+                        aria-label="Texto de origem"
+                    ></textarea>
+
+                    <footer class="painel-rodape">
+                        <span id="contadorEntrada">0 caracteres</span>
+
+                        <div class="acoes">
+                            <button
+                                class="botao-icone"
+                                id="limpar"
+                                title="Limpar entrada"
+                                type="button"
+                            >
+                                ×
+                            </button>
+
+                            <button
+                                class="botao-icone"
+                                id="copiarEntrada"
+                                title="Copiar entrada"
+                                type="button"
+                            >
+                                ⧉
+                            </button>
+                        </div>
+                    </footer>
+                </article>
+
+                <button
+                    class="trocar"
+                    id="trocar"
+                    title="Inverter"
+                    type="button"
+                >
+                    ⇄
+                </button>
+
+                <article class="painel">
+                    <header class="painel-topo">
+                        <label for="destino">Destino</label>
+                        <select id="destino"></select>
+                    </header>
+
+                    <div
+                        class="configuracao"
+                        id="configDestino"
+                    ></div>
+
+                    <textarea
+                        id="saida"
+                        readonly
+                        placeholder="O resultado aparecerá aqui..."
+                        aria-label="Resultado"
+                    ></textarea>
+
+                    <footer class="painel-rodape">
+                        <span id="contadorSaida">0 caracteres</span>
+
+                        <div class="acoes">
+                            <button
+                                class="botao-icone"
+                                id="copiarSaida"
+                                title="Copiar resultado"
+                                type="button"
+                            >
+                                ⧉
+                            </button>
+                        </div>
+                    </footer>
+                </article>
+            </section>
+
+            <section
+                class="morse-tools"
+                id="morseTools"
+                aria-label="Ferramentas Morse"
+            >
+                <div class="morse-controles">
+                    <button
+                        class="morse-btn"
+                        id="muteMorse"
+                        type="button"
+                    >
+                        Som
+                    </button>
+
+                    <button
+                        class="morse-btn"
+                        id="manualMorse"
+                        type="button"
+                    >
+                        Sinalização Manual
+                    </button>
+
+                    <button
+                        class="morse-btn ativo"
+                        id="timerMorse"
+                        type="button"
+                    >
+                        Temporizador
+                    </button>
+
+                    <button
+                        class="morse-btn"
+                        id="playMorse"
+                        type="button"
+                    >
+                        Reproduzir
+                    </button>
+
+                    <button
+                        class="morse-btn"
+                        id="espacoMorse"
+                        type="button"
+                    >
+                        Espaço
+                    </button>
+                </div>
+
+                <div
+                    class="sinalizador-area"
+                    id="sinalizadorArea"
+                >
+                    <button
+                        id="botaoSinal"
+                        type="button"
+                    >
+                        Segurar sinal
+                    </button>
+
+                    <div
+                        class="timer"
+                        id="timerDisplay"
+                    >
+                        0.000 s
+                    </div>
+                </div>
+            </section>
+
+            <p
+                class="mensagem-sistema"
+                id="mensagemSistema"
+                role="status"
+            ></p>
+        </section>
+    </main>
+
+    <script id="mimetic-sistemas" type="application/json">
+{
+  "version": 1,
+  "systems": [
+    {
+      "id": "auryth",
+      "nome": "Auryth",
+      "categoria": "Idiomas — Universo Auryth",
+      "metodo": "mapa",
+      "codifica": true,
+      "decodifica": true,
+      "parametros": [],
+      "mapa": {
+        "A": "Bri",
+        "a": "bri",
+        "Ã": "Bru",
+        "ã": "bru",
+        "Á": "Bre",
+        "á": "bre",
+        "À": "Bra",
+        "à": "bra",
+        "Â": "Bro",
+        "â": "bro",
+        "B": "Fr",
+        "b": "fr",
+        "C": "Sta",
+        "c": "sta",
+        "Ç": "Stra",
+        "ç": "stra",
+        "D": "Ve",
+        "d": "ve",
+        "E": "Na",
+        "e": "na",
+        "É": "Nre",
+        "é": "nre",
+        "È": "Nra",
+        "è": "nra",
+        "Ê": "Nro",
+        "ê": "nro",
+        "F": "Ko",
+        "f": "ko",
+        "G": "Xi",
+        "g": "xi",
+        "H": "Já",
+        "h": "já",
+        "I": "Ki",
+        "i": "ki",
+        "Í": "Kre",
+        "í": "kre",
+        "Ì": "Kra",
+        "ì": "kra",
+        "Î": "Kro",
+        "î": "kro",
+        "J": "Ga",
+        "j": "ga",
+        "K": "Ru",
+        "k": "ru",
+        "L": "Vr",
+        "l": "vr",
+        "M": "Ny",
+        "m": "ny",
+        "N": "Mu",
+        "n": "mu",
+        "O": "Yo",
+        "o": "yo",
+        "Ó": "Yre",
+        "ó": "yre",
+        "Ò": "Yra",
+        "ò": "yra",
+        "Ô": "Yro",
+        "ô": "yro",
+        "Õ": "Yru",
+        "õ": "yru",
+        "P": "Ro",
+        "p": "ro",
+        "Q": "Za",
+        "q": "za",
+        "R": "As",
+        "r": "as",
+        "S": "Du",
+        "s": "du",
+        "T": "Ne",
+        "t": "ne",
+        "U": "Io",
+        "u": "io",
+        "Ú": "Ire",
+        "ú": "ire",
+        "Ù": "Ira",
+        "ù": "ira",
+        "Û": "Iro",
+        "û": "iro",
+        "V": "Tre",
+        "v": "tre",
+        "W": "Go",
+        "w": "go",
+        "X": "Ni",
+        "x": "ni",
+        "Y": "De",
+        "y": "de",
+        "Z": "Tru",
+        "z": "tru"
+      }
+    },
+    {
+      "id": "bhriskavoy",
+      "nome": "Bhriskavoy",
+      "categoria": "Tria Sidera — Idiomas",
+      "metodo": "mapa",
+      "codifica": true,
+      "decodifica": true,
+      "parametros": [],
+      "mapa": {
+        "A": "Gha",
+        "a": "gha",
+        "Á": "Ghra",
+        "á": "ghra",
+        "Â": "Gro",
+        "â": "gro",
+        "Ã": "Ghu",
+        "ã": "ghu",
+        "B": "Zhr",
+        "b": "zhr",
+        "C": "Tka",
+        "c": "tka",
+        "Ç": "Tkra",
+        "ç": "tkra",
+        "D": "Vek",
+        "d": "vek",
+        "E": "Sha",
+        "e": "sha",
+        "É": "Shre",
+        "é": "shre",
+        "È": "Shra",
+        "è": "shra",
+        "Ê": "Shro",
+        "ê": "shro",
+        "F": "Xol",
+        "f": "xol",
+        "G": "Rag",
+        "g": "rag",
+        "H": "Hu",
+        "h": "hu",
+        "I": "Kii",
+        "i": "kii",
+        "Í": "Kra",
+        "í": "kra",
+        "Ì": "Kru",
+        "ì": "kru",
+        "Î": "Kro",
+        "î": "kro",
+        "J": "Zai",
+        "j": "zai",
+        "K": "Krul",
+        "k": "krul",
+        "L": "Vel",
+        "l": "vel",
+        "M": "Nom",
+        "m": "nom",
+        "N": "Nar",
+        "n": "nar",
+        "O": "Vor",
+        "o": "vor",
+        "Ó": "Vra",
+        "ó": "vra",
+        "Ò": "Vru",
+        "ò": "vru",
+        "Ô": "Vro",
+        "ô": "vro",
+        "Õ": "Vrau",
+        "õ": "vrau",
+        "P": "Prah",
+        "p": "prah",
+        "Q": "Qru",
+        "q": "qru",
+        "R": "Ras",
+        "r": "ras",
+        "S": "Ssu",
+        "s": "ssu",
+        "T": "Taa",
+        "t": "taa",
+        "U": "Thu",
+        "u": "thu",
+        "Ú": "Thra",
+        "ú": "thra",
+        "Ù": "Thru",
+        "ù": "thru",
+        "Û": "Thro",
+        "û": "thro",
+        "V": "Vru",
+        "v": "vru",
+        "W": "Wra",
+        "w": "wra",
+        "X": "Xii",
+        "x": "xii",
+        "Y": "Yul",
+        "y": "yul",
+        "Z": "Zor",
+        "z": "zor"
+      },
+      "avisos": [
+        "saida \"Vru\" usada por Ò, V",
+        "saida \"vru\" usada por ò, v"
+      ]
+    },
+    {
+      "id": "binario",
+      "nome": "Binário UTF-8",
+      "categoria": "Conversões numéricas",
+      "metodo": "binario",
+      "codifica": true,
+      "decodifica": true,
+      "parametros": []
+    },
+    {
+      "id": "cesar",
+      "nome": "Cifra de César",
+      "categoria": "Cifras clássicas",
+      "metodo": "cesar",
+      "codifica": true,
+      "decodifica": true,
+      "parametros": [
+        {
+          "id": "deslocamento",
+          "tipo": "number",
+          "padrao": 3,
+          "min": 0,
+          "max": 25,
+          "direcao": "ambos",
+          "nome": "Deslocamento"
+        }
+      ]
+    },
+    {
+      "id": "morse",
+      "nome": "Código Morse",
+      "categoria": "Cifras clássicas",
+      "metodo": "morse",
+      "codifica": true,
+      "decodifica": true,
+      "parametros": []
+    },
+    {
+      "id": "erased",
+      "nome": "Erased",
+      "categoria": "Transformações especiais",
+      "metodo": "erased",
+      "codifica": true,
+      "decodifica": false,
+      "parametros": [
+        {
+          "id": "caracteres",
+          "tipo": "text",
+          "padrao": "AEIOU",
+          "direcao": "encode",
+          "nome": "Caracteres apagados"
+        }
+      ]
+    },
+    {
+      "id": "hex",
+      "nome": "Hexadecimal",
+      "categoria": "Conversões numéricas",
+      "metodo": "hex",
+      "codifica": true,
+      "decodifica": true,
+      "parametros": []
+    },
+    {
+      "id": "sshoryath",
+      "nome": "Sshoryath",
+      "categoria": "Idiomas — Universo Auryth",
+      "metodo": "mapa",
+      "codifica": true,
+      "decodifica": true,
+      "parametros": [],
+      "mapa": {
+        "A": "Kra'",
+        "a": "kra'",
+        "B": "Zul'",
+        "b": "zul'",
+        "C": "Nek'",
+        "c": "nek'",
+        "Ç": "Sha'",
+        "ç": "sha'",
+        "D": "Grol'",
+        "d": "grol'",
+        "E": "Tha'",
+        "e": "tha'",
+        "F": "Vur'",
+        "f": "vur'",
+        "G": "Rax'",
+        "g": "rax'",
+        "H": "Ssh'",
+        "h": "ssh'",
+        "I": "Yir'",
+        "i": "yir'",
+        "J": "Qel'",
+        "j": "qel'",
+        "K": "Drak'",
+        "k": "drak'",
+        "L": "Vash'",
+        "l": "vash'",
+        "M": "Thra'",
+        "m": "thra'",
+        "N": "Urg'",
+        "n": "urg'",
+        "O": "Mok'",
+        "o": "mok'",
+        "P": "Kren'",
+        "p": "kren'",
+        "Q": "Xyr'",
+        "q": "xyr'",
+        "R": "Lor'",
+        "r": "lor'",
+        "S": "Tesh'",
+        "s": "tesh'",
+        "T": "Val'",
+        "t": "val'",
+        "U": "Yul'",
+        "u": "yul'",
+        "V": "Zarn'",
+        "v": "zarn'",
+        "W": "Ghur'",
+        "w": "ghur'",
+        "X": "Klyr'",
+        "x": "klyr'",
+        "Y": "Zhul'",
+        "y": "zhul'",
+        "Z": "Brel'",
+        "z": "brel'"
+      }
+    }
+  ]
+}
+    </script>
+    <script src="js/mimetic.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

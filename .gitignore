@@ -1,0 +1,20 @@
+# Versao publica: somente os arquivos utilizados pelo site entram no Git.
+# Para adicionar um novo recurso, inclua seu caminho nesta lista.
+/*
+!/.gitignore
+!/index.html
+!/css/
+/css/*
+!/css/style.css
+!/css/mimetic.css
+!/js/
+/js/*
+!/js/script.js
+!/js/mimetic.js
+!/img/
+/img/*
+!/img/Mimetic Ico.png
+!/img/letreiro-mimetic.png
+!/img/logo-mimetic.png
+!/img/mimetic-inferior.png
+!/img/mimetic-superior.png
